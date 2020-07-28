@@ -25,8 +25,6 @@ COPY run-*.sh /usr/local/bin/
 COPY contrib/*.ldif /usr/local/etc/openldap/
 COPY contrib/*.schema /usr/local/etc/openldap/
 COPY contrib/DB_CONFIG /usr/local/etc/openldap/
-COPY data /var/run/openldap/data
-
 
 # Install OpenLDAP Server, give it permissionst to bind to low ports
 RUN yum install -y openldap openldap-servers openldap-clients && \
