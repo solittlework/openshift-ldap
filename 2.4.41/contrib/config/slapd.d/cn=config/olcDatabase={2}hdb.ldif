@@ -6,6 +6,7 @@ objectClass: olcHdbConfig
 olcDatabase: {2}hdb
 olcDbDirectory: /var/lib/ldap
 olcDbIndex: objectClass eq,pres
+olcDbIndex: uid eq
 olcDbIndex: ou,cn,mail,surname,givenname eq,pres,sub
 structuralObjectClass: olcHdbConfig
 entryUUID: 1752ed18-022c-1035-8b21-150b514cd1c2
