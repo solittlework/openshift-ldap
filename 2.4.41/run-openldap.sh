@@ -14,7 +14,7 @@ OPENLDAP_DEBUG_LEVEL=${OPENLDAP_DEBUG_LEVEL:-256}
 OPENLDAP_LISTEN_URIS=${OPENLDAP_LISTEN_URIS:-"ldaps:/// ldap:///"}
 
 # Only run if no config has happened fully before
-if [ ! -f /etc/openldap/CONFIGURED ]; then
+if [ true ]; then
 
     user=`id | grep -Po "(?<=uid=)\d+"`
     if (( user == 0 ))
