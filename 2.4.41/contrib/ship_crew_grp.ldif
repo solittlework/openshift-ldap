@@ -1,0 +1,6 @@
+dn: cn=ship_crew,ou=people,dc=example,dc=com
+objectclass: Group
+objectclass: top
+groupType: 2147483650
+cn: ship_crew
+member: cn=Philip J. Fry,ou=people,dc=examle,dc=com
