@@ -66,24 +66,32 @@ if [ ! -f /etc/openldap/CONFIGURED ]; then
         ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/configure_refint.ldif -d $OPENLDAP_DEBUG_LEVEL
 
         # config group
-        echo "Config group"
-        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/msad.ldif -d $OPENLDAP_DEBUG_LEVEL
+        echo "Start Config group"
+        ldapmodify -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/msad.ldif -d $OPENLDAP_DEBUG_LEVEL
+        echo "End Config group"
 
         # configure membership
-        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/memberof.ldif -d $OPENLDAP_DEBUG_LEVEL
+        echo "Start Config membership"
+        #ldapmodify -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/memberof.ldif -d $OPENLDAP_DEBUG_LEVEL
+        echo "End Config membership"
 
+        echo "Add domain"
+        ldapadd -x -H ldapi:/// -D cn=Manager,dc=example,dc=com -w admin -f /usr/local/etc/openldap/domain.ldif -d $OPENLDAP_DEBUG_LEVEL
 
-        echo "Add ou=people XXXXXXXXXXXXXXxx"
-        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/people.ldif -d $OPENLDAP_DEBUG_LEVEL
+        echo "Add People OU"
 
-        echo "Add ship_crew_grp"
-        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/ship_crew_grp.ldif -d $OPENLDAP_DEBUG_LEVEL
-
-        echo "Add admin_staff_grp"
-        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/admin_staff_grp.ldif -d $OPENLDAP_DEBUG_LEVEL
+        ldapadd -x -H ldapi:/// -D cn=Manager,dc=example,dc=com -w admin -f /usr/local/etc/openldap/people.ldif -d $OPENLDAP_DEBUG_LEVEL
+        echo "End People OU"
 
         echo "Add person User fry"
-        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/fry.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+        ldapadd -x -H ldapi:/// -D cn=Manager,dc=example,dc=com -w admin -f /usr/local/etc/openldap/fry.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+        echo "Add ship_crew_grp"
+        ldapadd -x -H ldapi:/// -D cn=Manager,dc=example,dc=com -w admin -f /usr/local/etc/openldap/ship_crew_grp.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+        echo "Add admin_staff_grp"
+        ldapadd -x -H ldapi:/// -D cn=Manager,dc=example,dc=com -w admin -f /usr/local/etc/openldap/admin_staff_grp.ldif -d $OPENLDAP_DEBUG_LEVEL
 
         # extract dc name from root DN suffix
         dc_name=$(echo "${OPENLDAP_ROOT_DN_SUFFIX}" | grep -Po "(?<=^dc\=)[\w\d]+")

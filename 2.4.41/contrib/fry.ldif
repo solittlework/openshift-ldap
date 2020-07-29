@@ -1,4 +1,4 @@
-dn: cn=Philip J. Fry,ou=people,dc=example,dc=com
+dn: cn=Philip J. Fry,dc=example,dc=com
 objectClass: inetOrgPerson
 objectClass: organizationalPerson
 objectClass: person
