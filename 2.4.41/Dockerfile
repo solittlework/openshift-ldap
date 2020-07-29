@@ -33,17 +33,20 @@ RUN yum install -y openldap openldap-servers openldap-clients && \
     yum clean all -y && \
     setcap 'cap_net_bind_service=+ep' /usr/sbin/slapd && \
     mkdir -p /var/lib/ldap && \
-    chmod a+rwx -R /var/lib/ldap && \
     mkdir -p /etc/openldap && \
-    chmod a+rwx -R /etc/openldap && \
-    mkdir -p /var/run/openldap && \
-    chmod a+rwx -R /var/run/openldap && \
-    chmod -R a+rw /opt/openshift 
+    mkdir -p /var/run/openldap
 
 RUN chmod 755 /usr/local/bin/build.sh
 RUN /usr/local/bin/build.sh
 
+RUN  chmod a+rwx -R /var/lib/ldap && \
+    chmod a+rwx -R /etc/openldap && \
+    chmod a+rwx -R /var/run/openldap && \
+    chmod -R a+rw /opt/openshift 
+
 # Expose default ports for ldap and ldaps
 EXPOSE 389 636
+
+USER 1001
 
 CMD ["/usr/local/bin/run-openldap.sh"]
