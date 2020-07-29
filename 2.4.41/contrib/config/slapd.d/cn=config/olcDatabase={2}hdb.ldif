@@ -1,5 +1,5 @@
 # AUTO-GENERATED FILE - DO NOT EDIT!! Use ldapmodify.
-# CRC32 12587906
+# CRC32 7b06522d
 dn: olcDatabase={2}hdb
 objectClass: olcDatabaseConfig
 objectClass: olcHdbConfig
