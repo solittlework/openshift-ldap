@@ -65,8 +65,25 @@ if [ ! -f /etc/openldap/CONFIGURED ]; then
         # configure refint module
         ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/configure_refint.ldif -d $OPENLDAP_DEBUG_LEVEL
 
-        echo "Add person frr"
-        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/fry.ldif
+        # config group
+        echo "Config group"
+        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/msad.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+        # configure membership
+        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/memberof.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+
+        echo "Add ou=people XXXXXXXXXXXXXXxx"
+        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/people.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+        echo "Add ship_crew_grp"
+        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/ship_crew_grp.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+        echo "Add admin_staff_grp"
+        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/admin_staff_grp.ldif -d $OPENLDAP_DEBUG_LEVEL
+
+        echo "Add person User fry"
+        ldapadd -Y EXTERNAL -H ldapi:/// -f /usr/local/etc/openldap/fry.ldif -d $OPENLDAP_DEBUG_LEVEL
 
         # extract dc name from root DN suffix
         dc_name=$(echo "${OPENLDAP_ROOT_DN_SUFFIX}" | grep -Po "(?<=^dc\=)[\w\d]+")
